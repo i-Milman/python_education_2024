@@ -1,0 +1,7 @@
+my_string = input ('Введите любой текст: ')
+print ('Длина строки:\t', len(my_string))
+print ('Строка в нижнем регистре:\t', my_string.lower())
+print ('Строка в верхнем регистре:\t', my_string.upper())
+my_string = my_string.replace(' ', '')
+print ('Первый символ строки:\t\t', my_string[0])
+print ('Последний символ строки:\t', my_string[-1])
