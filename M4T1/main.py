@@ -1,4 +1,4 @@
-from addon import say_hello, say_hello2
+import addon
 
-say_hello()
-say_hello2()
+addon.say_hello()
+addon.say_hello2()
