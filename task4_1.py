@@ -6,6 +6,6 @@ class house: # Класс
         for floor in range(1, self.floors + 1):
             print(f"Текущий этаж равен {floor}")
 
-new_house = house() # Создаем экземпляр класса House
+new_house = house() # Создаем экземпляр класса house
 
-new_house.print_floors() # Вызываем метод printFloors
+new_house.print_floors() # Вызываем метод print_floors
