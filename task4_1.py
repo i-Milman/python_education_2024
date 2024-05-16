@@ -1,8 +1,8 @@
-class house:
-    def __init__(self):
-        self.floors = 10
+class house: # Класс
+    def __init__(self): # Конструктор класса
+        self.floors = 10 # Атрибут класса
 
-    def print_floors(self):
+    def print_floors(self): # Метод класса
         for floor in range(1, self.floors + 1):
             print(f"Текущий этаж равен {floor}")
 
