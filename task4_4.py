@@ -5,7 +5,7 @@ class Building:
         Building.total += 1
 
 
-# Создаю 40 объектов класса Building в цикле
+# Создаю 40 объектов класса Building в цикле и вывожу созданные объекты на экран командой print
 buildings = []
 for i in range(40):
     building = Building()
