@@ -21,9 +21,9 @@ class Kia(Car):
 
 # Примеры использования
 nissan = Nissan()
-print("Nissan Price:", nissan.price)
-print("Nissan Horse Power:", nissan.horse_powers())
+print("Nissan - цена:", nissan.price)
+print("Nissan - лошадиные силы:", nissan.horse_powers())
 
 kia = Kia()
-print("Kia Price:", kia.price)
-print("Kia Horse Power:", kia.horse_powers())
+print("Kia - цена:", kia.price)
+print("Kia - лошадиные силы:", kia.horse_powers())
