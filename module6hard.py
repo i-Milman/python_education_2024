@@ -7,12 +7,16 @@ class Figure:
     __color = []
     filled = True
 
+    # Отображение значения защищённого свойства '__color'
     def get_color(self):
-        return self.__color
+        # Единственное найденное полезное применение ранее созданного свойства 'filled'
+        return self.__color if self.filled else None
 
+    # Отображение значения защищённого свойства '__sides'
     def get_sides(self):
         return self.__sides
 
+    # Служебный метод класса, проверяющий возможность изменения цвета заливки фигуры
     def __is_valid_color(self, *colors) -> bool:
         if not len(colors) == 3:
             return False
@@ -21,6 +25,7 @@ class Figure:
                 return False
         return True
 
+    # Служебный метод класса, проверяющий возможность изменения сторон фигуры
     def __is_valid_sides(self, *sides) -> bool:
         if not len(sides) == self.sides_count:
             return False
@@ -29,47 +34,57 @@ class Figure:
                 return False
         return True
 
+    # Установка цвета заливки фигуры, используется как при инициализации объекта, так и при работе с объектом
     def set_color(self, *colors):
         if not self.__is_valid_color(*colors):
-            return
+            return False
         self.__color = [*colors]
+        return True
 
+    # Установка сторон фигуры, используется как при инициализации объекта, так и при работе с объектом
     def set_sides(self, *sides):
         if not self.__is_valid_sides(*sides):
             return False
         self.__sides = [*sides]
+        self.__update_properties()
         return True
 
+    # Дополнительные операции рассчёта свойств фигуры после установки сторон фигуры
+    def __update_properties(self):
+        pass
+
+    # Вывод суммы сторон фигуры
     def __len__(self):
-        if isinstance(self.__sides, list):
-            return sum(self.__sides)
-        else:
-            return self.__sides
+        return sum(self.__sides)
+
 
 class Circle(Figure):
     sides_count = 1
 
     def __init__(self, color, side):
         if not self.set_sides(side):
-            self.__sides = [1]
+            self.__sides = [1] * self.sides_count
         if not self.set_color(*color):
-            self.__sides = [1] * 3
+            self.filled = False
 
+    def __update_properties(self):
         self.__radius = self.__sides[0] / (2 * math.pi)
+        self.__square = math.pi * self.__radius ** 2
 
     def get_square(self):
-        return math.pi * self.__radius ** 2
+        return self.__square
 
 
 class Triangle(Figure):
     sides_count = 3
 
     def __init__(self, color, *sides):
-        if not self.set_sides([*sides] * self.sides_count):
+        if not self.set_sides(*sides):
             self.__sides = [1] * self.sides_count
         if not self.set_color(*color):
-            self.__sides = [1] * 3
+            self.filled = False
 
+    def __update_properties(self):
         p = sum(*self.__sides) / 2
         self.__square = math.sqrt(p * (p - self.__sides[0]) * (p - self.__sides[1]) * (p - self.__sides[2]))
         self.__height = 2 * self.__square / self.__sides[0]
@@ -81,14 +96,16 @@ class Triangle(Figure):
 class Cube(Figure):
     sides_count = 12
 
-    def __init__(self, color, *sides):
-        if not self.set_sides([*sides] * self.sides_count):
+    def __init__(self, color, side):
+        sides = [side] * self.sides_count
+        if not self.set_sides(*sides):
             self.__sides = [1] * self.sides_count
         if not self.set_color(*color):
-            self.__sides = [1] * 3
+            self.filled = False
 
     def get_volume(self):
-        return math.prod(self.__sides)
+        # Есть альтернатива: math.pow(self.get_sides()[0], 3)
+        return self.get_sides()[0] ** 3
 
 
 # Код для проверки:
