@@ -7,6 +7,12 @@ class Figure:
     __color = []
     filled = True
 
+    def __init__(self, color, *sides):
+        if not self.set_sides(*sides):
+            self.__sides = [1] * self.sides_count
+        if not self.set_color(*color):
+            self.filled = False
+
     # Отображение значения защищённого свойства '__color'
     def get_color(self):
         # Единственное найденное полезное применение ранее созданного свойства 'filled'
@@ -61,12 +67,6 @@ class Figure:
 class Circle(Figure):
     sides_count = 1
 
-    def __init__(self, color, side):
-        if not self.set_sides(side):
-            self.__sides = [1] * self.sides_count
-        if not self.set_color(*color):
-            self.filled = False
-
     def __update_properties(self):
         self.__radius = self.__sides[0] / (2 * math.pi)
         self.__square = math.pi * self.__radius ** 2
@@ -77,12 +77,6 @@ class Circle(Figure):
 
 class Triangle(Figure):
     sides_count = 3
-
-    def __init__(self, color, *sides):
-        if not self.set_sides(*sides):
-            self.__sides = [1] * self.sides_count
-        if not self.set_color(*color):
-            self.filled = False
 
     def __update_properties(self):
         p = sum(*self.__sides) / 2
@@ -96,12 +90,9 @@ class Triangle(Figure):
 class Cube(Figure):
     sides_count = 12
 
-    def __init__(self, color, side):
-        sides = [side] * self.sides_count
-        if not self.set_sides(*sides):
-            self.__sides = [1] * self.sides_count
-        if not self.set_color(*color):
-            self.filled = False
+    def __init__(self, color, *sides):
+        sides = [*sides] * self.sides_count
+        super().__init__(color, *sides)
 
     def get_volume(self):
         # Есть альтернатива: math.pow(self.get_sides()[0], 3)
@@ -129,3 +120,14 @@ print(len(circle1))
 
 # Проверка объёма (куба):
 print(cube1.get_volume())
+
+# Дополнительно
+print()
+circle2 = Circle((200, 200, 100), 10, 15, 6)  # его стороны будут - [1]
+print(circle2.get_sides())
+triangle2 = Triangle((200, 200, 100), 10, 6)  # его стороны будут - [1, 1, 1]
+print(triangle2.get_sides())
+cube2 = Cube((200, 200, 100), 9)  # его стороны будут - [9, 9, 9, ....., 9]
+print(cube2.get_sides())
+cube3 = Cube((200, 200, 100), 9, 12)  # его стороны будут - [1, 1, 1, ....., 1]
+print(cube3.get_sides())
