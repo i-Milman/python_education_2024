@@ -25,8 +25,12 @@ def f(a, b):
     try:
         throw_exception(a, b)
         return a + b
-    except (InvalidDataException, ProcessingException) as e:
-        print(f"Сработало исключение: {e}")
+    except InvalidDataException as e:
+        print(f"Ошибка: {e}")
+        raise
+    except ProcessingException as e:
+        print(f"Ошибка: {e}")
+        raise
 
 
 # проверка обработки исключения
