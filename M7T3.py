@@ -10,8 +10,9 @@ class Team:
         self.time = 0
 
     def solve_tasks(self):
-        self.score = randint(40,50)
-        self.time = randint (240, 600) * self.score
+        # Сложная формула коллективного разума, которую наспех придумал и объяснять не буду =Р
+        self.score = int(randint(30,40) / (1 - 1/self.num))
+        self.time = randint (40, 60) * self.score
 
 
 team1 = Team('Мастера кода')
