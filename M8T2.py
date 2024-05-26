@@ -27,15 +27,12 @@ def f(a, b):
         return a + b
     except InvalidDataException as e:
         print(f"Ошибка: {e}")
+        # передача информации в вызвавшую функцию о наличии исключения
         raise
     except ProcessingException as e:
         print(f"Ошибка: {e}")
-        raise
 
 
 # проверка обработки исключения
-f(5, 4)
 f(5, 5)
-
-# проверка срабатывания исключения
-throw_exception(5, 3)
+f(5, 4)
