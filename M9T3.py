@@ -4,7 +4,7 @@ class EvenNumbers:
         if start >= end:
             print('* Значение атрибута start должно быть всегда меньше значения атрибута end.\n'
                   '* Установлено наибольшее подходящее значение')
-            self.start = end - 2
+            self.start = end - 1
         else:
             self.start = start
         self.end = end
