@@ -13,14 +13,15 @@ class BankAccount(Thread):
     def __init__(self, *args, **kwargs):
         super(BankAccount, self).__init__(*args, **kwargs)
 
-    def deposit_task(account, amount):
-        for _ in range(5):
-            account.deposit(amount)
 
-    def withdraw_task(account, amount):
-        for _ in range(5):
-            account.withdraw(amount)
-            account = BankAccount()
+def deposit_task(account, amount):
+    for _ in range(5):
+        account.deposit(amount)
+
+def withdraw_task(account, amount):
+    for _ in range(5):
+        account.withdraw(amount)
+        account = BankAccount()
 
 # Проверка:
 deposit_thread = threading.Thread(target=deposit_task, args=(account, 100))
