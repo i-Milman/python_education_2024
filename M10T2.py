@@ -8,8 +8,11 @@
 
 # Решение:
 from time import sleep
-from threading import Thread
+from threading import Thread, Lock
 
+# "with lock:" добавлено в обе функции как заплатка для соответствия эталлону решению,
+# иначе возникает проблема вывода данных в один поток stdout, что приводит к перемешиванию вывода.
+lock = Lock()
 
 class Knight(Thread):
     def __init__(self, name: str, skill: int, *args, **kwargs):
@@ -18,14 +21,17 @@ class Knight(Thread):
         self.skill = skill
 
     def run(self):
-        print(f'{self.name}, на нас напали!')
+        with lock:
+            print(f'{self.name}, на нас напали!')
         days, warriors = 0, 100
         while warriors > 0:
             sleep(1)
             days += 1
             warriors -= self.skill
-            print(f'{self.name} сражается {days} день(дня).., осталось {warriors} воинов.')
-        print(f'{self.name} одержал победу спустя {days} дней(дня)!')
+            with lock:
+                print(f'{self.name} сражается {days} день(дня).., осталось {warriors} воинов.')
+        with lock:
+            print(f'{self.name} одержал победу спустя {days} дней(дня)!')
 
 
 
@@ -38,3 +44,4 @@ knight2.start()
 
 knight1.join()
 knight2.join()
+print('Все битвы закончились!')
