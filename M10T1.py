@@ -14,7 +14,7 @@ lock = Lock()
 
 
 def print_nums():
-    for num in range(1, 11):
+    for num in range(1, 10 + 1):
         with lock:
             print(str(num))
         sleep(1)
