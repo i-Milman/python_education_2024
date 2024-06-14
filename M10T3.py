@@ -38,7 +38,6 @@ def deposit_task(account, amount):
 def withdraw_task(account, amount):
     for _ in range(5):
         account.withdraw(amount)
-        # account = BankAccount()
 
 
 # Проверка:
