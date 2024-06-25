@@ -48,18 +48,31 @@ II. Класс Sedan наследуется от класса Vehicle, а так
 Создайте объект класса Sedan и проверьте, как работают все его методы, взяты из класса Vehicle.
 """
 
+
 # Решение:
 
-# Словарик для раскраски вывода
-CPRINT = {'black': '\033[30m',
-          'red': '\033[31m',
-          'green': '\033[32m',
-          'yellow': '\033[33m',
-          'blue': '\033[34m',
-          'purple': '\033[35m',
-          'cyan': '\033[36m',
-          'white': '\033[37m',
-          }
+# Структура для раскраски вывода
+
+class CText:
+    BLACK = '\033[30m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    BLUE = '\033[34m'
+    PURPLE = '\033[35m'
+    CYAN = '\033[36m'
+    WHITE = '\033[37m'
+
+
+# CPRINT = {'black': '\033[30m',
+#           'red': '\033[31m',
+#           'green': '\033[32m',
+#           'yellow': '\033[33m',
+#           'blue': '\033[34m',
+#           'purple': '\033[35m',
+#           'cyan': '\033[36m',
+#           'white': '\033[37m',
+#           }
 
 
 class Vehicle:
@@ -88,21 +101,21 @@ class Vehicle:
         Метод возвращает информацию о модели транспорта
         :return: строка с информацией
         """
-        return f"{CPRINT['blue']}Модель: {CPRINT['cyan']}{self.__model}"
+        return f"{CText.BLUE}Модель: {CText.CYAN}{self.__model}"
 
     def get_horsepower(self) -> str:
         """
         Метод возвращает информацию о мощности двигателя
         :return: строка с информацией
         """
-        return f"{CPRINT['blue']}Мощность двигателя: {CPRINT['cyan']}{self.__engine_power}"
+        return f"{CText.BLUE}Мощность двигателя: {CText.CYAN}{self.__engine_power}"
 
     def get_color(self) -> str:
         """
         Метод возвращает информацию о цвете
         :return: строка с информацией
         """
-        return f"{CPRINT['blue']}Цвет: {CPRINT['cyan']}{self.__color}"
+        return f"{CText.BLUE}Цвет: {CText.CYAN}{self.__color}"
 
     def print_info(self) -> None:
         """
@@ -111,7 +124,7 @@ class Vehicle:
         print(self.get_model())
         print(self.get_horsepower())
         print(self.get_color())
-        print(f"{CPRINT['blue']}Владелец: {CPRINT['cyan']}{self.owner}")
+        print(f"{CText.BLUE}Владелец: {CText.CYAN}{self.owner}")
 
     def set_color(self, new_color: str) -> None:
         """
@@ -121,7 +134,7 @@ class Vehicle:
         if new_color.lower() in self.__COLOR_VARIANTS:
             self.__color = new_color
         else:
-            print(f'{CPRINT['red']}Нельзя сменить цвет на {CPRINT['cyan']}{new_color}')
+            print(f'{CText.RED}Нельзя сменить цвет на {CText.CYAN}{new_color}')
 
 
 class Sedan(Vehicle):
@@ -135,13 +148,12 @@ class Sedan(Vehicle):
         Метод выводит на экран данные о вместимости пассажиров
         :return: строка с информацией
         """
-        return f"{CPRINT['blue']}Вместимость пассажиров: {CPRINT['cyan']}{self.__PASSENGERS_LIMIT}"
+        return f"{CText.BLUE}Вместимость пассажиров: {CText.CYAN}{self.__PASSENGERS_LIMIT}"
 
 
 # Проверка:
 
 if __name__ == '__main__':
-
     # Текущие цвета __COLOR_VARIANTS = ['blue', 'red', 'green', 'black', 'white']
     vehicle1 = Sedan('Fedos', 'Toyota Mark II', 'blue', 500)
 
