@@ -20,6 +20,11 @@ from random import randint, choice
 
 
 def count_calls(func):
+    """
+    Считает количество выполнений функций, используя глобальную переменную
+    :param func:  любая функция
+    :return: та же функция
+    """
     def wrapper(*args, **kwargs):
         globals()['calls'] += 1
         return func(*args, **kwargs)
@@ -28,11 +33,22 @@ def count_calls(func):
 
 @count_calls
 def string_info(string: str) -> (int, str, str):
+    """
+    Функция возвращает кортеж с данными
+    :param string: строка
+    :return: кортеж из длины указанной строки, строки в верхнем регистре, строки в нижнем регистре
+    """
     return len(string), string.upper(), string.lower()
 
 
 @count_calls
 def is_contains(string: str, list_to_search: list) -> bool:
+    """
+    Функция проверяет наличие строки в списке
+    :param string: строка
+    :param list_to_search: список строк
+    :return: логическое значение наличия строки в списке
+    """
     return any(x.lower() == string.lower() for x in list_to_search)
 
 
@@ -53,10 +69,12 @@ for _1 in range(randint(10, 1000)):
                 chr(randint(1072, 1103)),
                 chr(randint(32, 42))        # Прочие символы 32-42
             ]))
-        # Непосредственно заполнение строки
+        # Заполнение строки
         for char in list_of_symbols:
             string += char
+        # Заполнение списка
         list_to_search.append(string)
+    # Вызов функций
     func1_result = string_info(choice(list_to_search))
     func2_result = is_contains(choice(list_to_search), list_to_search)
     # print(list_to_search, func1_result, func2_result, sep='\n')
