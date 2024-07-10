@@ -14,23 +14,19 @@
 'Text for tell.', 'Используйте кодировку utf-8.' - сами строки.
 """
 
+
 # Решение:
-import os
-
-LINEFEED = '\n' if os.name == 'nt' else '\r\n'
-
-
 def custom_write(file_name: str, strings: list) -> dict:
     """
     :param file_name: имя файла для записи
     :param strings: список строк для записи
     :return: словарь, где ключом будет кортеж (<номер строки>, <байт начала строки>), а значением - записываемая строка
     """
-    file = open(file_name, 'w', encoding='utf-8')
+    file = open(file_name, 'wb')
     strings_positions = dict()
     for num, string in enumerate(strings):
         strings_positions[num + 1, file.tell()] = string
-        file.write(string + LINEFEED)
+        file.write(f'{strings[num]}\n'.encode('utf-8'))
     file.close()
     return strings_positions
 
