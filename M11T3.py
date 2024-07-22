@@ -18,7 +18,6 @@ import inspect
 
 def introspection_info(obj):
     info = dict()
-    obj.t
     info['Тип'] = type(obj).__name__
     info['Методы'] = [x[0] for x in inspect.getmembers(obj) if 'method' in str(x[1])]
     info['Аттрибуты'] = [x for x in dir(obj) if x not in info['Методы']]
