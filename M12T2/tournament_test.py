@@ -45,10 +45,11 @@ class TournamentTest(unittest.TestCase):
     def setUpClass(cls):
         cls.all_results = {}
 
-    def setUp(self):
-        self.runner1 = rt.Runner("Усэйн", 10)
-        self.runner2 = rt.Runner("Андрей", 9)
-        self.runner3 = rt.Runner("Ник", 3)
+    @classmethod
+    def setUp(cls):
+        cls.runner1 = rt.Runner("Усэйн", 10)
+        cls.runner2 = rt.Runner("Андрей", 9)
+        cls.runner3 = rt.Runner("Ник", 3)
 
     @classmethod
     def tearDownClass(cls):
@@ -80,7 +81,15 @@ class TournamentTest(unittest.TestCase):
         last = results[len(results)]
         self.assertEqual(last, self.runner3)
 
-    # 1 тест дополнительно
+    # 2 теста дополнительно
+    def test_usain_andrey(self):
+        tournament = rt.Tournament(90, self.runner1, self.runner2)
+        results = tournament.start()
+        self.all_results["Усэйн и Андрей"] = results
+
+        last = results[len(results)]
+        self.assertEqual(last, self.runner2)
+
     def test_andrey_usain(self):
         tournament = rt.Tournament(90, self.runner2, self.runner1)
         results = tournament.start()
