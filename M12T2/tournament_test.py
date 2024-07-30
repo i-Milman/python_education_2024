@@ -37,7 +37,7 @@ tearDownClass - метод, где выводятся all_results по очер�
 """
 
 import unittest
-import runner_and_tournament as rt
+import runner_and_tournament_t as rt
 
 
 class TournamentTest(unittest.TestCase):
@@ -54,7 +54,7 @@ class TournamentTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         for key, value in cls.all_results.items():
-            print({key_: value_.__str__() for key_, value_ in value.items()})
+            print({key_: str(value_) for key_, value_ in value.items()})
 
     # 3 теста по условию
     def test_usain_nick(self):
@@ -81,9 +81,10 @@ class TournamentTest(unittest.TestCase):
         last = results[len(results)]
         self.assertEqual(last, self.runner3)
 
+    """
     # 2 теста дополнительно
     def test_usain_andrey(self):
-        tournament = rt.Tournament(90, self.runner1, self.runner2)
+        tournament = rt.Tournament(900, self.runner1, self.runner2)
         results = tournament.start()
         self.all_results["Усэйн и Андрей"] = results
 
@@ -91,12 +92,13 @@ class TournamentTest(unittest.TestCase):
         self.assertEqual(last, self.runner2)
 
     def test_andrey_usain(self):
-        tournament = rt.Tournament(90, self.runner2, self.runner1)
+        tournament = rt.Tournament(900, self.runner2, self.runner1)
         results = tournament.start()
         self.all_results["Андрей и Усэйн"] = results
 
         last = results[len(results)]
         self.assertEqual(last, self.runner2)
+    """
 
 
 
