@@ -34,7 +34,6 @@ class RunnerTest(unittest.TestCase):
         self.assertNotEqual(test_obj_1.distance, test_obj_2.distance)
 
 
-logging.basicConfig(level=logging.INFO, filemode='w', filename='runner_tests.log',
+logging.basicConfig(level=logging.INFO , filemode='w', filename='runner_tests.log',
                     format='%(asctime)s | %(levelname)s | %(message)s', encoding='UTF-8')
-
-unittest.main()
+logging.info('Started')
