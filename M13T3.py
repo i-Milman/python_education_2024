@@ -76,6 +76,10 @@ async def command_start_handler(message: Message) -> None:
 
 @dp.message(Command('Calories'))
 async def set_age(message: Message, state: FSMContext) -> None:
+	"""
+    Этот обработчик получает сообщения с помощью команды `/Calories` и начинает работу с Машиной Состояний
+    """
+    # Устанавливаю состояние. новые сообщения будут направляться в соответствующую функцию
     await state.set_state(UserState.age)
     await message.answer("Введите свой возраст:")
 
@@ -83,7 +87,10 @@ async def set_age(message: Message, state: FSMContext) -> None:
 @dp.message(UserState.age)
 async def set_age(message: Message, state: FSMContext):
     if message.text.isdigit():
+    	# Сохраняю ответ
         await state.update_data(age=message.text)
+        
+        # Устанавливаю состояние. новые сообщения будут направляться в соответствующую функцию
         await state.set_state(UserState.growth)
         await message.answer("Введите свой рост:")
     else:
@@ -93,7 +100,10 @@ async def set_age(message: Message, state: FSMContext):
 @dp.message(UserState.growth)
 async def set_growth(message: Message, state: FSMContext):
     if message.text.isdigit():
+    	# Сохраняю ответ
         await state.update_data(growth=message.text)
+        
+        # Устанавливаю состояние. новые сообщения будут направляться в соответствующую функцию
         await state.set_state(UserState.weight)
         await message.answer("Введите свой вес:")
     else:
@@ -103,9 +113,10 @@ async def set_growth(message: Message, state: FSMContext):
 @dp.message(UserState.weight)
 async def set_weight(message: Message, state: FSMContext):
     if message.text.isdigit():
+    	# Сохраняю ответ
         await state.update_data(weight=message.text)
-        await state.set_state(UserState.growth)
-
+        
+        # Сохраняю собранные данные и останавливаю Машину Состояний
         data = await state.get_data()
         await state.clear()
 
@@ -132,5 +143,6 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
+    logging.basicConfig(level=logging.INFO, stream=sys.stdout,
+        format='%(asctime)s | %(message)s')
     asyncio.run(main())
