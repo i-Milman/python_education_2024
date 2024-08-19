@@ -17,7 +17,7 @@ import asyncio
 import logging
 import sys
 
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher, F
 from aiogram.filters import Command, CommandStart
 from aiogram.types import Message
 
@@ -57,10 +57,10 @@ async def command_start_handler(message: Message) -> None:
     Этот обработчик получает сообщения с помощью команды `/start`
     """
     await message.answer("Привет! Я бот помогающий твоему здоровью.",
-                         reply_markup=kb_main_menu(['/Calories', '/Information']))
+                         reply_markup=kb_main_menu(['Рассчитать', 'Информация']))
 
 
-@dp.message(Command('Calories'))
+@dp.message(F.text.lower().contains('рассчитать'))
 async def set_age(message: Message, state: FSMContext) -> None:
     await state.set_state(UserState.age)
     await message.answer("Введите свой возраст:")
