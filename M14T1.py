@@ -78,12 +78,12 @@ for n in range(1, 11):
 
 # Вывод в терминал
 cursor.execute("""
-SELECT *
+SELECT username, email, age, balance
 FROM Users
 WHERE age != 60
 """)
 [print(f'Имя: {username} | Почта: {email} | Возраст: {age} | Баланс: {balance}')
- for id, username, email, age, balance in cursor.fetchall()]
+ for username, email, age, balance in cursor.fetchall()]
 print()
 
 # Вывод в терминал c помощью pandas
