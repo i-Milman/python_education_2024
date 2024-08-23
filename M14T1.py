@@ -88,10 +88,10 @@ print()
 
 # Вывод в терминал c помощью pandas
 df = pd.read_sql("""
-SELECT *
+SELECT username, email, age, balance
 FROM Users
 WHERE age != 60
-""", conn, index_col='id')
+""", conn)
 df.rename(columns={'username':'Имя', 'email':'Почта', 'age':'Возраст', 'balance':'Баланс'}, inplace=True)
 print(df)
 
