@@ -18,14 +18,14 @@
 # Функция send_confirm_message, присылает сообщение "Вы успешно приобрели продукт!"
 
 # Решение:
-# python 3.11.9 | aiogram 3.10.0
+# python 3.11.9 | aiogram 3.12.0
 import asyncio
 import logging
 import sys, os
 
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import Command, CommandStart
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, FSInputFile
 
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
@@ -106,7 +106,7 @@ async def get_buying_list(message: Message) -> None:
     for i in range(1, 5):
         await message.answer(f'Название: Product{i} | Описание: описание {i} | Цена: {i * 100}')
         # await bot.send_photo(message.chat.id, 'product.jpg')
-        await message.answer_photo(photo='./product.webp')
+        await message.answer_photo(FSInputFile('product.webp'))
     await message.answer('Выберите продукт для покупки:', reply_markup=ikb_buy_menu)
 
 
@@ -132,7 +132,8 @@ async def start_calc(callback: CallbackQuery, state: FSMContext) -> None:
 
 @dp.callback_query(F.data == 'product_buying')
 async def buy(callback: CallbackQuery) -> None:
-    pass
+    await callback.message.answer('Вы успешно приобрели продукт!')
+    await callback.answer()
 
 
 # Обработчики состояний
