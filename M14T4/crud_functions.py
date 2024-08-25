@@ -47,4 +47,3 @@ def add_product(cursor, title, description, price):
 
 # initiate_db()
 # [add_product(f'Продукт {i}', f'Описание {i}', i * 100) for i in range(1,5)]
-print(get_all_products())
