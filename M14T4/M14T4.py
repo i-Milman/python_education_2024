@@ -45,6 +45,9 @@ bot = Bot(token=TOKEN)
 # Все обработчики должны быть подключены к маршрутизатору (или Диспетчеру)
 dp = Dispatcher()
 
+# Инициализация баз данных
+initiate_db()
+
 
 # Состояния
 class UserState(StatesGroup):
