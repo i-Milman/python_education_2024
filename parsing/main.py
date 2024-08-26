@@ -31,7 +31,29 @@ with open ('afisha.yandex.ru.html', 'rb') as f:
 
 # Создаем объект BeautifulSoup и указываем парсер
 soup = BeautifulSoup(src, 'html.parser')
-event_card = soup.find_all('div', class_='i-react event-card-react i-bem')
+events = soup.find_all('div', class_='i-react event-card-react i-bem')
 
-print(*event_card, sep='\n\n')
+# print(*events, sep='\n')
+# print()
+
+for i in range(len(events)):
+    # Вытаскиваю оттуда JSON
+    jtext = str(events[i])
+    jtext = jtext[jtext.find('{'):jtext.rfind('}') + 1]
+
+    # Извлекаем нужную информацию с помощью json
+    event_data = json.loads(jtext)
+    props = event_data['event-card-react']['props']
+
+    # Печатаем информацию
+    print("Название:", props['title'])
+    try:
+        print('Описание:', props['argument'])
+    except:
+        print('Описание: отсутствует')
+    print("Возрастное ограничение:", props['ageLimit'])
+    print("Ссылка на изображение:", props['image']['retina']['2x'])
+    print("Ссылка на событие:", "https://afisha.yandex.ru" + props['link'])
+    print()
+
 
