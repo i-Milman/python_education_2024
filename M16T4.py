@@ -50,7 +50,7 @@ async def create_user(username: str, age: int) -> User:
 
 
 @app.put("/user/{user_id}/{username}/{age}")
-async def update_user(user_id: int, username: str, age: int) -> str:
+async def update_user(user_id: int, username: str, age: int) -> str | User:
     for user in users:
         if user.id == user_id:
             user.username = username
@@ -60,7 +60,7 @@ async def update_user(user_id: int, username: str, age: int) -> str:
 
 
 @app.delete("/user/{user_id}")
-async def delete_user(user_id: int) -> str:
+async def delete_user(user_id: int) -> str | User:
     for i, user in enumerate(users):
         if user.id == user_id:
             deleted_user = users.pop(i)
